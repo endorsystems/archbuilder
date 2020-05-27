@@ -88,6 +88,8 @@ pacstrap /mnt \
   linux-firmware \
   linux-headers \
   device-mapper \
+  cryptsetup \
+  luks \
   inetutils \
   diffutils \
   e2fsprogs \
@@ -110,50 +112,50 @@ pacstrap /mnt \
   efibootmgr \
 # Laptop packages
   ansible \
-  i3 \
-  i3-gaps \
-  rofi \
-  dunst \
-  xorg-server \
-  xorg-xinit \
-  unzip \
-  stow \
-  samba \
-  cups \
-  rxvt-unicode \
-  remmina \
-  freerdp \
-  tigervnc \
-  signal-desktop \
-  ranger \
-  picom \
-  papirus-icon-theme \
-  noto-fonts \
-  lm_sensors \
-  bluez \
-  feh \
-  htop \
-  imagemagick \
-  kitty \
-  alsa \
-  pulseaudio \
-  pulseaudio-alsa \
-  pulseaudio-bluetooth \
-  xf86-input-libinput \
-  virtualbox \
-  virtualbox-host-dkms \
-  xorg-xbacklight \
-  code \
-  fish \
-  ttf-dejavu \
-  ttf-liberation \
-  ttf-roboto \
-  rsync \
-  firefox \
-  libva-intel-driver \
-  libva-vdpau-driver \
-  xf86-video-intel \
-  libva-intel-driver \
+  # i3 \
+  # i3-gaps \
+  # rofi \
+  # dunst \
+  # xorg-server \
+  # xorg-xinit \
+  # unzip \
+  # stow \
+  # samba \
+  # cups \
+  # rxvt-unicode \
+  # remmina \
+  # freerdp \
+  # tigervnc \
+  # signal-desktop \
+  # ranger \
+  # picom \
+  # papirus-icon-theme \
+  # noto-fonts \
+  # lm_sensors \
+  # bluez \
+  # feh \
+  # htop \
+  # imagemagick \
+  # kitty \
+  # alsa \
+  # pulseaudio \
+  # pulseaudio-alsa \
+  # pulseaudio-bluetooth \
+  # xf86-input-libinput \
+  # virtualbox \
+  # virtualbox-host-dkms \
+  # xorg-xbacklight \
+  # code \
+  # fish \
+  # ttf-dejavu \
+  # ttf-liberation \
+  # ttf-roboto \
+  # rsync \
+  # firefox \
+  # libva-intel-driver \
+  # libva-vdpau-driver \
+  # xf86-video-intel \
+  # libva-intel-driver \
   git
 
 # Generate fstab
@@ -172,7 +174,7 @@ arch-chroot /mnt ln -sf /usr/share/zoneinfo/US/Eastern /etc/localtime
 arch-chroot /mnt useradd -mU -G wheel "$sudo_user"
 
 # Sudoers edits
-arch-chroot /mnt echo "$sudo_user ALL=(ALL) NOPASSWD:ALL" > /etc/sudoers.d/1-$sudo_user
+arch-chroot /mnt echo "$sudo_user ALL=(ALL) ALL:ALL" > /etc/sudoers.d/1-$sudo_user
 
 # Bootloader install
 arch-chroot /mnt grub-install --target=x86_64-efi --efi-directory=/boot/ --bootloader-id=GRUB
@@ -183,7 +185,7 @@ echo "$sudo_user:$sudo_user_password" | chpasswd --root /mnt
 echo "root:$root_user_password" | chpasswd --root /mnt
 
 # download aur ansible module
-arch-chroot /mnt git clone https://github.com/kewlfft/ansible-aur.git /etc/ansible/plugins/modules/aur
+#arch-chroot /mnt git clone https://github.com/kewlfft/ansible-aur.git /etc/ansible/plugins/modules/aur
 
 # umount partitions
 umount ${part_boot}
